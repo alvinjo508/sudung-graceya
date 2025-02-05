@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No...</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            overflow: hidden;
+            position: relative;
+        }
+        .label {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: opacity 0.5s;
+        }
+        .glitch {
+            position: absolute;
+            font-size: 30px;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            animation: glitch 0.3s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { transform: translate(2px, -2px); }
+            100% { transform: translate(-2px, 2px); }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createLabel() {
+            let label = document.createElement("div");
+            label.classList.add("label");
+            label.innerText = "Sudung suka Graceya Sudung cinta Graceya";
+
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            
+            label.style.left = x + "px";
+            label.style.top = y + "px";
+
+            document.body.appendChild(label);
+
+            setTimeout(() => {
+                label.style.opacity = "0";
+                setTimeout(() => {
+                    label.remove();
+                }, 500);
+            }, 500);
+        }
+
+        setInterval(createLabel, 300);
+
+        // Efek glitch di tengah layar
+        let glitchText = document.createElement("div");
+        glitchText.classList.add("glitch");
+        glitchText.innerText = "YOU CAN'T ESCAPE!";
+        glitchText.style.left = "50%";
+        glitchText.style.top = "50%";
+        glitchText.style.transform = "translate(-50%, -50%)";
+        document.body.appendChild(glitchText);
+
+        // Cegah keluar dari halaman
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
+    </script>
+</body>
+</html>
